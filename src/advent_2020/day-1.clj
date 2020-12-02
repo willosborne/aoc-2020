@@ -9,13 +9,17 @@
                 (map edn/read-string)))
 
 (def combos (for [x input
-                  y input]
-              [x y]))
+                  y input
+                  z input]
+              [x y z]))
 
-(defn valid? [arg]
-  (let [[x y] arg]
-    (= (+ x y) 2020)))
+(defn valid? [[x y z]]
+  (= (+ x y z) 2020))
 
 (def valid (filter valid? combos))
 
-(def answer ((first valid)))
+(def answer (let [[x y z] (first valid)]
+              (* x y z)))
+
+(defn func [[a b]]
+  (print a b))
