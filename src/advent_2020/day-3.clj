@@ -23,7 +23,6 @@ EMPTY = <'.'>"))
                                  :EMPTY \.) line)))))
   nil)
 
-
 (defn get-grid-wrapped [grid x y]
   (let [w (count (first grid))
         h (count grid)
@@ -33,27 +32,23 @@ EMPTY = <'.'>"))
       (nth (nth grid y) x-index))))
 
 (defn run
-  ([grid dx dy] (run grid 0 0 0 dx dy))
-  ([grid x y num-trees dx dy]
-   (case (get-grid-wrapped grid x y)
-     :out-of-bounds num-trees
-     :TREE (recur grid
-                  (+ x dx)
-                  (+ y dy)
-                  (+ num-trees 1)
-                  dx dy)
-     :EMPTY (recur grid
-                   (+ x dx)
+  [grid dx dy]
+  (defn run-inner [x y num-trees]
+    (case (get-grid-wrapped grid x y)
+      :out-of-bounds num-trees
+      :TREE (recur (+ x dx)
                    (+ y dy)
-                   num-trees
-                   dx dy)
-     (throw "error"))))
+                   (+ num-trees 1))
+      :EMPTY (recur (+ x dx)
+                    (+ y dy)
+                    num-trees)
+      (throw "error")))
+  (run-inner 0 0 0))
 
 (def answer-1 (run column 3 1))
 
-(def answer-2 (*
-               (run column 1 1)
-               (run column 3 1)
-               (run column 5 1)
-               (run column 7 1)
-               (run column 1 2)))
+(def answer-2 (* (run column 1 1)
+                 (run column 3 1)
+                 (run column 5 1)
+                 (run column 7 1)
+                 (run column 1 2)))
