@@ -50,4 +50,3 @@ LINE = REQS<': '>PASS
         (and (not match-lower) match-upper))))
 
 (def answer-2 (count (filter password-valid-2? data)))
-

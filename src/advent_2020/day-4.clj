@@ -97,8 +97,8 @@ val = #'[0-9]+'"))
 (comment
   (check-hair "#ffffff")
   (check-hair "ffffff")
-  (check-hair "#gggggg")
-  (check-hair "#aaa0000")
+  (check-hair "#gggggg") 
+  (check-hair "#aaa0000") ;; GOTCHA! 
   )
 
 (def valid-eyes ["amb"
